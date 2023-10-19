@@ -5,9 +5,9 @@ import { nanoid } from 'nanoid';
 
 const contactsSlice = createSlice({
     name: "contacts",
-    initialState: [],
+    initialState: {contactsList: []},
     reducers: {
-        addContact: {
+        addContactSlice: {
             reducer(state, action) {
                 state.contactsList.push(action.payload);
             }, prepare(contact) {
@@ -32,4 +32,4 @@ const persistConfig = {
 
 export const getContacts = state => state.contacts.contactsList;
 export const contactsReducer = persistReducer(persistConfig, contactsSlice.reducer);
-export const { addContacts, removeContact } = contactsSlice.actions;
+export const { addContactSlice, removeContact } = contactsSlice.actions;

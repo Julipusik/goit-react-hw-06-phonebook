@@ -1,25 +1,25 @@
 import { Formik } from "formik";
 import { FormEl, FormField, FormBtn } from "./ContactForm.styled";
 import { useDispatch, useSelector } from "react-redux";
-import { getContacts } from "redux/contactsSlice";
-import { addContacts } from "redux/contactsSlice";
+import { addContactSlice, getContacts } from "redux/contactsSlice";
 import { Report } from 'notiflix/build/notiflix-report-aio';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
 
-  function contactExists(contact) {
-    return contacts.some(element => contact.name.toLowerCase() === element.name.toLowerCase());
-  }
-
   const addContact = contact => {
     if (contactExists(contact)) {
       Report.failure('Oops', 'This contact already exists in your phonebook');
       return;
     }
-    dispatch(addContacts(contact));
+    dispatch(addContactSlice(contact));
   }
+
+  function contactExists(contact) {
+    return contacts.some(element => contact.name.toLowerCase() === element.name.toLowerCase());
+  }
+  
     return (
        <Formik
         initialValues={{ name: '', number: '', }}
